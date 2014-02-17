@@ -1,15 +1,27 @@
 body {
   padding: 2em; }
 
-.person {
-  padding: 0 2em;
+h1, p {
+  margin: 0; }
+
+.container {
+  max-width: 440px;
+  margin: 0 auto; }
+
+.item {
+  text-align: center;
   display: inline-block;
-  background: blue;
-  color: white;
-  float: left;
-  margin: 10px;
-  text-align: center; }
-  .person.inactive {
+  background: #fefefe;
+  border: 2px solid #fafafa;
+  box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+  margin: 0 2px 15px;
+  padding: 5px;
+  background: -webkit-linear-gradient(45deg, white, #f9f9f9);
+  width: 200px; }
+  .item.inactive {
     background: green; }
-  .person.active {
+  .item.active {
     background: red; }
+  .item img {
+    max-width: 200px;
+    max-height: 200px; }

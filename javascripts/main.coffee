@@ -1,40 +1,38 @@
-log = (m) ->
-	console.log m
-
-log 'main.coffee'
-
-
-#Requires jquery UI (autocomplete) 
-#Requires jquery UI css (for default styles)
 
 
 
-allNames = []
-nameInput = $('#nameInput')
-searchBtn = $('#nameSearch')
 
-$name = $('.name')
-$name.each () ->
-	nameText = $(this).text()
-	allNames.push(nameText)
 
-nameInput.autocomplete source: allNames
+	# allNames = []
+	# Input = $('#searchInput')
+	# searchBtn = $('#search-btn')
+	# $item_name = $('.item-name')
 
-searchBtn.click ->
-	runSearch()
 
-runSearch = ->
-	typed = $('#nameInput').val()
-	console.log typed
-	
-nameInput.on("autocompletechange change", ->
-	typed = @value
-	console.log typed
-	$name.removeClass('active')
+	$item_name.each () ->
+		nameText = $(this).text()
+		allNames.push(nameText)
 
-	$name.filter(->
-		$(this).text() is typed
-	).closest('.person').addClass('active').siblings().addClass('inactive')
 
-).change()
-	
+	Input.autocomplete source: allNames
+
+
+	searchBtn.click -> runSearch()
+
+	runSearch = ->
+		log 'runSearch()'
+		typed = Input.val()
+		console.log typed
+		
+
+	Input.on("autocompletechange change", ->
+		typed = @value
+		console.log typed
+		$item_name.removeClass('active')
+
+		$item_name.filter(->
+			$(this).text() is typed
+		).closest('.item').addClass('active').siblings().addClass('inactive')
+
+	).change()
+		

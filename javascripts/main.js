@@ -1,27 +1,13 @@
 (function() {
-  var $name, allNames, log, nameInput, runSearch, searchBtn;
+  var runSearch;
 
-  log = function(m) {
-    return console.log(m);
-  };
-
-  log('main.coffee');
-
-  allNames = [];
-
-  nameInput = $('#nameInput');
-
-  searchBtn = $('#nameSearch');
-
-  $name = $('.name');
-
-  $name.each(function() {
+  $item_name.each(function() {
     var nameText;
     nameText = $(this).text();
     return allNames.push(nameText);
   });
 
-  nameInput.autocomplete({
+  Input.autocomplete({
     source: allNames
   });
 
@@ -31,18 +17,19 @@
 
   runSearch = function() {
     var typed;
-    typed = $('#nameInput').val();
+    log('runSearch()');
+    typed = Input.val();
     return console.log(typed);
   };
 
-  nameInput.on("autocompletechange change", function() {
+  Input.on("autocompletechange change", function() {
     var typed;
     typed = this.value;
     console.log(typed);
-    $name.removeClass('active');
-    return $name.filter(function() {
+    $item_name.removeClass('active');
+    return $item_name.filter(function() {
       return $(this).text() === typed;
-    }).closest('.person').addClass('active').siblings().addClass('inactive');
+    }).closest('.item').addClass('active').siblings().addClass('inactive');
   }).change();
 
 }).call(this);

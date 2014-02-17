@@ -18,48 +18,75 @@
 </head>
 <body>
 
-Search Thing
+<div class='container'>
 
 
+<h1>Search Names</h1>
 <div class="ui-widget"><br>
-  <label for="tags">Search Name: </label><br>
-  <input id="nameInput">
-  <button id="nameSearch">Search</button>
+  <label for="searchInput">Search Name: </label><br>
+  <input id="searchInput">
+  <button id="search-btn">Search</button>
 </div>
 
 <br>
 
-<div class='person'>
-  <p class='name'>Ben Lodge</p>
+	<div class='item'>
+		<img src="img/dvn.jpg">
+	  <p class='item-name'>Dr. Van Nostrand</p>
+	  <p class='job'>Doctor</p>
+	</div>
+
+	<div class='item'>
+		<img src="img/av.jpg">
+	  <p class='item-name'>Art Vandelay</p>
+	  <p class='job'>Architect</p>
+	</div>
+
+	<div class='item'>
+		<img src="img/agp.jpg">
+	  <p class='item-name'>A.G. Penny Packer</p>
+	  <p class='job'>Wealthy Industrialist</p>
+	</div>
+
+	<div class='item'>
+		<img src="img/paloma.jpg">
+	  <p class='item-name'>Paloma</p>
+	  <p class='job'>Nurse</p>
+	</div>
+
+	<div class='item'>
+		<img src="img/kv.jpg">
+	  <p class='item-name'>Kel Varnsen</p>
+	  <p class='job'>?</p>
+	</div>
+
+	<div class='item'>
+		<img src="img/bn.jpg">
+	  <p class='item-name'>Buck Naked</p>
+	  <p class='job'>Porn Star</p>
+	</div>
+
 </div>
 
-<div class='person IMC'>
-  <p class='name'>Bob Smith</p>
-</div>
-
-<div class='person'>
-  <p class='name'>Matt</p>
-</div>
-
-<div class='person'>
-  <p class='name'>Meow</p>
-</div>
-
-<div class='person'>
-  <p class='name'>David</p>
-</div>
-
-<div class='person'>
-  <p class='name'>Stephanie</p>
-</div>
 
 
 	
 	<script src="javascripts/vendor/jquery.js"></script>
 	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-	<script src="javascripts/main.js"></script>
-	
+	<script src="javascripts/searchfilter.jquery.js"></script>
 
+	<script>
+	$(document).ready(function(){
+		  $('.container').searchfilter({
+		  	'item' : '.item',
+				'input' : '#searchInput',
+				'searchBtn' : '#search-btn',
+				'searchItem' : '.item-name'
+		  });
+
+	})
+
+	</script>
 	
 	
 </body>
