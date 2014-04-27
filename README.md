@@ -1,1 +1,1 @@
-This is a plugin that provides an auto-complete search and filter.
+Working on a plugin that gives auto-complete search and filtering.
