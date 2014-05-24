@@ -30,47 +30,54 @@
 
 	<div class='item'>
 		<img src="img/dvn.jpg">
-	  	<p class='item-name'>Dr. Van Nostrand</p>
-	  	<p class='item-name'>Julliard-trained Dermatologist</p>
+	  	<p class='search-item searchable'>Dr. Van Nostrand</p>
+	  	<p class='search-item searchable'>Julliard-trained Dermatologist</p>
 	  	<hr>
-	  	<p class='item-list'>Dr, Doc, Healthcare, Health care, Hospital</p>
+	  	<p class='search-item searchable'>Dr, Doc, Healthcare, Health care, Hospital</p>
+	  	<div class='full-bio create-search-items searchable' style='display:none'>
+		  	Cosmo Kramer, usually referred to as simply "Kramer", is a fictional character on the American television sitcom Seinfeld (1989–1998), played by Michael Richards.
+
+			The character is loosely based on comedian Kenny Kramer, Larry David's former neighbor across the hall. Kramer is the friend and neighbor of main character Jerry Seinfeld, residing in Apartment 5B, and is friends with George Costanza and Elaine Benes. Of the series' four central characters, only Kramer has no visible means of support; what few jobs he holds seem to be nothing more than larks.
+
+			His trademarks include his upright hairstyle and vintage wardrobe, the combination of which led to his categorization as a "hipster doofus"; his taste in fresh fruit; his love of occasional smoking, Cuban cigars in particular; his bursts through Jerry's apartment door; frequent pratfalls and his penchant for nonsensical, percussive outbursts of noise to indicate skepticism, agreement, annoyance, and a variety of other responses. He has been described as "an extraordinary cross between Eraserhead and Herman Munster".[1] Kramer appeared in all but two episodes: "The Chinese Restaurant" and "The Pen", in the second and third seasons, respectively.
+	  	</div>
 	
 	</div>
 
 	<div class='item'>
 		<img src="img/av.jpg">
-	  	<p class='item-name'>Art Vandelay</p>
-	  	<p>Title: <span class='item-name job'>Architect</span></p>
+	  	<p class='search-item searchable'>Art Vandelay</p>
+	  	<p>Title: <span class='search-item searchable'>Architect</span></p>
 	  	<hr>
-	  	<p class='item-list'>Architecture, buildings, houses</p>
+	  	<p class='search-item searchable'>Architecture, buildings, houses</p>
 	</div>
 
 	<div class='item'>
 		<img src="img/agp.jpg">
-	  	<p class='item-name'>A.G. Penny Packer</p>
-	  	<p>Title: <span class='job'>Wealthy American Industrialist</span></p>
+	  	<p class='search-item searchable'>A.G. Penny Packer</p>
+	  	<p>Title: <span class='search-item searchable'>Wealthy American Industrialist</span></p>
 	  	<hr>
-	  	<p class='item-list'>Industry titon, silver mining, mining, Mayan culture, pricing guns</p>
+	  	<p class='search-item searchable'>Industry titon, silver mining, mining, Mayan culture, pricing guns</p>
 	</div>
 
 	<div class='item'>
 		<img src="img/paloma.jpg">
-	  	<p class='item-name'>Paloma</p>
-	  	<p>Title: <span class='job item-name'>Nurse</span></p>
+	  	<p class='search-item'>Paloma</p>
+	  	<p>Title: <span class='search-item searchable'>Nurse</span></p>
 	  	<hr>
 	</div>
 
 	<div class='item'>
 		<img src="img/kv.jpg">
-	  <p class='item-name'>Kel Varnsen</p>
-	  <p>Title: <span class='job'>?</span></p>
+	  <p class='search-item'>Kel Varnsen</p>
+	  <p>Title: <span class='search-item'>?</span></p>
 	  <hr>
 	</div>
 
 	<div class='item'>
 		<img src="img/bn.jpg">
-	  <p class='item-name'>Buck Naked</p>
-	  <p class='job'>Porn Star</p>
+	  <p class='search-item'>Buck Naked</p>
+	  <p class='search-item'>Porn Star</p>
 	  <hr>
 
 	</div>
@@ -88,11 +95,8 @@
 
 
 	$(document).ready(function(){
-		  $('body').BL_Searchable({
-		  // 		'item' : '.item',
-				// 'input' : '#searchInput',
-				// 'searchBtn' : '#search-btn',
-				// 'searchItem' : '.item-name'
+		  $('.container').BL_Searchable({
+
 		  });
 
 	})

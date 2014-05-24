@@ -2,25 +2,46 @@
   var $, log;
 
   log = function(m) {
-    return console.log(m);
+    console.log('--------------------------------------------');
+    console.log(m);
+    return console.log('--------------------------------------------');
   };
 
   $ = jQuery;
 
   $.fn.BL_Searchable = function(options) {
-    var defaults, getFilterItems, removeDups, searchTags;
+    var defaults, getClass, getFilterItems, makeItemList, removeDups, searchTags;
     defaults = {
-      item: $('.item'),
+      itemSelector: $('.item'),
       input: $('#searchInput'),
-      item_list: $('.item-list'),
+      item_list: $('.search-item'),
       item_name: $('.item-name'),
+      searchable: $('.searchable'),
       all_items: '',
       search_items: [],
-      filter_dom: $('.item-list')
+      filter_dom: $('.item-list'),
+      make_items: $('.create-search-items')
     };
     options = $.extend(defaults, options);
+    getClass = function(obj) {
+      if (typeof obj === "undefined") {
+        return "undefined";
+      }
+      if (obj === null) {
+        return "null";
+      }
+      return Object.prototype.toString.call(obj).match(/^\[object\s(.*)\]$/)[1];
+    };
+    makeItemList = function() {
+      var new_list;
+      new_list = '';
+      options.make_items.each(function() {
+        new_list = $(this).text();
+        return new_list += new_list.split(' ');
+      });
+      return new_list.split(',');
+    };
     getFilterItems = function() {
-      log('getting fitler items');
       options.item_list.each(function() {
         var lastChar, text;
         text = ($(this).text()).trim();
@@ -31,11 +52,10 @@
         return options.all_items += text;
       });
       options.all_items = options.all_items.split(',');
-      return removeDups(options.all_items);
+      return options.all_items;
     };
     removeDups = function(items) {
       var uniqueNames;
-      log('remove dups');
       uniqueNames = [];
       $.each(items, function(i, el) {
         if ($.inArray(el, uniqueNames) === -1) {
@@ -45,7 +65,6 @@
       return uniqueNames;
     };
     searchTags = function(items) {
-      log(items);
       options.input.autocomplete({
         source: items
       });
@@ -54,20 +73,24 @@
         keyCode = e.keyCode || e.which;
         if (keyCode === 13) {
           typed = this.value.trim();
-          options.item_list.closest('.item').removeClass('active');
-          options.item_list.closest('.item').removeClass('inactive');
-          return options.item_list.each(function() {
+          options.searchable.closest('.item').removeClass('active');
+          options.searchable.closest('.item').removeClass('inactive');
+          return options.searchable.each(function() {
             if ($(this).text().indexOf(typed) >= 0) {
-              return $(this).closest(options.item).addClass('active');
+              return $(this).closest(options.itemSelector).addClass('active');
             }
           });
         }
       });
     };
     return this.each(function() {
-      log("init");
+      var finals, make_items_list;
+      if (options.make_items.length > 0) {
+        make_items_list = makeItemList();
+      }
       options.search_items = getFilterItems();
-      return searchTags(options.search_items);
+      finals = make_items_list.concat(options.search_items);
+      return searchTags(removeDups(finals));
     });
   };
 
