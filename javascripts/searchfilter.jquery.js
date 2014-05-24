@@ -1,43 +1,41 @@
 (function() {
-  var BL_Searchable, log;
+  var $, log;
 
   log = function(m) {
     return console.log(m);
   };
 
-  $(document).ready(function() {
-    return BL_Searchable.init();
-  });
+  $ = jQuery;
 
-  BL_Searchable = {
-    item: $('.item'),
-    input: $('#searchInput'),
-    item_list: $('.item-list'),
-    item_name: $('.item-name'),
-    all_items: '',
-    search_items: [],
-    filter_dom: $('.item-list'),
-    init: function() {
-      this.search_items = this.getFilterItems();
-      return this.searchTags(this.search_items);
-    },
-    getFilterItems: function() {
-      var scope;
-      scope = this;
-      this.item_list.each(function() {
+  $.fn.BL_Searchable = function(options) {
+    var defaults, getFilterItems, removeDups, searchTags;
+    defaults = {
+      item: $('.item'),
+      input: $('#searchInput'),
+      item_list: $('.item-list'),
+      item_name: $('.item-name'),
+      all_items: '',
+      search_items: [],
+      filter_dom: $('.item-list')
+    };
+    options = $.extend(defaults, options);
+    getFilterItems = function() {
+      log('getting fitler items');
+      options.item_list.each(function() {
         var lastChar, text;
         text = ($(this).text()).trim();
         lastChar = text.substr(text.length - 1);
         if (lastChar !== ',') {
           text += ',';
         }
-        return scope.all_items += text;
+        return options.all_items += text;
       });
-      this.all_items = this.all_items.split(',');
-      return this.removeDups(this.all_items);
-    },
-    removeDups: function(items) {
+      options.all_items = options.all_items.split(',');
+      return removeDups(options.all_items);
+    };
+    removeDups = function(items) {
       var uniqueNames;
+      log('remove dups');
       uniqueNames = [];
       $.each(items, function(i, el) {
         if ($.inArray(el, uniqueNames) === -1) {
@@ -45,29 +43,32 @@
         }
       });
       return uniqueNames;
-    },
-    searchTags: function(items) {
-      var scope;
-      scope = this;
+    };
+    searchTags = function(items) {
       log(items);
-      this.input.autocomplete({
+      options.input.autocomplete({
         source: items
       });
-      return this.input.keypress(function(e) {
+      return options.input.keypress(function(e) {
         var keyCode, typed;
         keyCode = e.keyCode || e.which;
         if (keyCode === 13) {
           typed = this.value.trim();
-          scope.item_list.closest('.item').removeClass('active');
-          scope.item_list.closest('.item').removeClass('inactive');
-          return scope.item_list.each(function() {
+          options.item_list.closest('.item').removeClass('active');
+          options.item_list.closest('.item').removeClass('inactive');
+          return options.item_list.each(function() {
             if ($(this).text().indexOf(typed) >= 0) {
-              return $(this).closest(scope.item).addClass('active');
+              return $(this).closest(options.item).addClass('active');
             }
           });
         }
       });
-    }
+    };
+    return this.each(function() {
+      log("init");
+      options.search_items = getFilterItems();
+      return searchTags(options.search_items);
+    });
   };
 
 }).call(this);

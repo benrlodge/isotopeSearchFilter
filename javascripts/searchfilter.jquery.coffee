@@ -3,48 +3,45 @@ log = (m) ->
 
 
 
-$(document).ready -> BL_Searchable.init()
+
+$ = jQuery
+
+$.fn.BL_Searchable = (options) ->
+	defaults = 
+		item 		:	$('.item')
+		input 		:	$('#searchInput')
+		item_list 	:	$('.item-list')
+		item_name	:	$('.item-name')
+
+		all_items	: 	''  # change name later...
+		search_items:	[]
+
+		filter_dom	:	$('.item-list')
 
 
-
-BL_Searchable = 
-
-	item 		:	$('.item')
-	input 		:	$('#searchInput')
-	item_list 	:	$('.item-list')
-	item_name	:	$('.item-name')
-
-	all_items	: 	''  # change name later...
-	search_items:	[]
-
-	filter_dom	:	$('.item-list')
+	options = $.extend(defaults, options)
+	
 
 
- 
-	init: ->
-		@search_items = @getFilterItems()
-		@searchTags(@search_items)
+	getFilterItems = ->
 
-
-
-	getFilterItems: ->
-		scope = this
+		log 'getting fitler items'
 
 		# Add comma to end of tag list if doesn't already have one
-		@item_list.each ->
+		options.item_list.each ->
 			text = ($(this).text()).trim()
 			lastChar = text.substr(text.length - 1)
 			text += ',' if lastChar != ','
-			scope.all_items += text
+			options.all_items += text
 
 
-		@all_items = @all_items.split(',')
-		return @removeDups(@all_items)
+		options.all_items = options.all_items.split(',')
+		return removeDups(options.all_items)
 
 
 
-
-	removeDups: (items) ->
+	removeDups = (items) ->
+		log 'remove dups'
 		uniqueNames = []
 		$.each items, (i, el) ->
 			uniqueNames.push el  if $.inArray(el, uniqueNames) is -1
@@ -52,23 +49,39 @@ BL_Searchable =
 
 
 
-	searchTags: (items) ->
-		scope = this
-		log items
-		@input.autocomplete source: items
+	searchTags = (items) ->
 
-		@input.keypress (e) ->
+		log items
+		options.input.autocomplete source: items
+
+		options.input.keypress (e) ->
 			keyCode = e.keyCode || e.which
 			if (keyCode == 13)
 
 				
 				typed = (@value).trim()
-				scope.item_list.closest('.item').removeClass('active')
-				scope.item_list.closest('.item').removeClass('inactive') 
+				options.item_list.closest('.item').removeClass('active')
+				options.item_list.closest('.item').removeClass('inactive') 
 
-				scope.item_list.each ->
+				options.item_list.each ->
 					if $(this).text().indexOf(typed) >= 0 
-						$(this).closest(scope.item).addClass('active') 
+						$(this).closest(options.item).addClass('active') 
 
+
+	@each ->
+	
+
+		log "init"
+
+		options.search_items = getFilterItems()
+		searchTags(options.search_items)
+
+
+
+
+
+
+
+
+					
 				
-			

@@ -34,6 +34,7 @@
 	  	<p class='item-name'>Julliard-trained Dermatologist</p>
 	  	<hr>
 	  	<p class='item-list'>Dr, Doc, Healthcare, Health care, Hospital</p>
+	
 	</div>
 
 	<div class='item'>
@@ -84,15 +85,17 @@
 	<script src="javascripts/searchfilter.jquery.js"></script>
 
 	<script>
-	// $(document).ready(function(){
-	// 	  $('.container').searchfilter({
-	// 	  		'item' : '.item',
-	// 			'input' : '#searchInput',
-	// 			'searchBtn' : '#search-btn',
-	// 			'searchItem' : '.item-name'
-	// 	  });
 
-	// })
+
+	$(document).ready(function(){
+		  $('body').BL_Searchable({
+		  // 		'item' : '.item',
+				// 'input' : '#searchInput',
+				// 'searchBtn' : '#search-btn',
+				// 'searchItem' : '.item-name'
+		  });
+
+	})
 
 	</script>
 	
