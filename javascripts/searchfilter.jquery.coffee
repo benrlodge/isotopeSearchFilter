@@ -1,12 +1,10 @@
 log = (m) ->
-	console.log '--------------------------------------------'
 	console.log m
-	console.log '--------------------------------------------'
-
-
-
 
 $ = jQuery
+
+
+
 
 $.fn.BL_Searchable = (options) ->
 	defaults = 
@@ -27,24 +25,32 @@ $.fn.BL_Searchable = (options) ->
 	options = $.extend(defaults, options)
 	
 
-	getClass = (obj) ->
-		return "undefined"  if typeof obj is "undefined"
-		return "null"  if obj is null
-		Object::toString.call(obj).match(/^\[object\s(.*)\]$/)[1]
-
-
-
-
 
 
 	makeItemList = ->
 		new_list = ''
+
+
 		options.make_items.each ->
-			new_list = $(this).text()
+			log "MAKING ITEMS LOOP"
 
-			new_list += new_list.split(' ')
-			#Remove empty spaces......
+			log "ORIGINAL LIST"
+			create_list = $(this).text()
+			log create_list
 
+			log 'REPLACE QUOTES'
+			create_list = create_list.replace(/"/g, ",")
+			create_list = create_list.replace(/,,/g, ",")
+			log create_list
+
+			log "SPLIT UP-----------------------------"
+			create_list = create_list.split(' ')
+			log create_list
+
+			new_list += create_list
+
+
+			
 
 		# NEED TO COMBINE THIS WITH REST OF ITEMS
 		return new_list.split(',')
@@ -64,6 +70,8 @@ $.fn.BL_Searchable = (options) ->
 			lastChar = text.substr(text.length - 1)
 			text += ',' if lastChar != ','
 			options.all_items += text
+
+
 
 
 		options.all_items = options.all_items.split(',')
@@ -99,21 +107,15 @@ $.fn.BL_Searchable = (options) ->
 
 				typed = (@value).trim()
 
-
-				options.searchable.closest('.item').removeClass('active')
-				
+				options.searchable.closest('.item').removeClass('active')				
 				options.searchable.closest('.item').removeClass('inactive') 
-
 				options.searchable.each ->
-
 					if $(this).text().indexOf(typed) >= 0 
 						$(this).closest(options.itemSelector).addClass('active') 
 
 
 	@each ->
 	
-
-		
 		# Creating List of all text
 		make_items_list = makeItemList() if options.make_items.length > 0		
 		

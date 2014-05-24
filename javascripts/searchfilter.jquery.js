@@ -2,15 +2,13 @@
   var $, log;
 
   log = function(m) {
-    console.log('--------------------------------------------');
-    console.log(m);
-    return console.log('--------------------------------------------');
+    return console.log(m);
   };
 
   $ = jQuery;
 
   $.fn.BL_Searchable = function(options) {
-    var defaults, getClass, getFilterItems, makeItemList, removeDups, searchTags;
+    var defaults, getFilterItems, makeItemList, removeDups, searchTags;
     defaults = {
       itemSelector: $('.item'),
       input: $('#searchInput'),
@@ -23,21 +21,23 @@
       make_items: $('.create-search-items')
     };
     options = $.extend(defaults, options);
-    getClass = function(obj) {
-      if (typeof obj === "undefined") {
-        return "undefined";
-      }
-      if (obj === null) {
-        return "null";
-      }
-      return Object.prototype.toString.call(obj).match(/^\[object\s(.*)\]$/)[1];
-    };
     makeItemList = function() {
       var new_list;
       new_list = '';
       options.make_items.each(function() {
-        new_list = $(this).text();
-        return new_list += new_list.split(' ');
+        var create_list;
+        log("MAKING ITEMS LOOP");
+        log("ORIGINAL LIST");
+        create_list = $(this).text();
+        log(create_list);
+        log('REPLACE QUOTES');
+        create_list = create_list.replace(/"/g, ",");
+        create_list = create_list.replace(/,,/g, ",");
+        log(create_list);
+        log("SPLIT UP-----------------------------");
+        create_list = create_list.split(' ');
+        log(create_list);
+        return new_list += create_list;
       });
       return new_list.split(',');
     };
