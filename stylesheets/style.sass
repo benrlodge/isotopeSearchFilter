@@ -5,7 +5,7 @@ h1, p
 	margin: 0
 
 .container
-	max-width: 675px
+	max-width: 100%
 	margin: 0 auto
 
 .item
@@ -14,17 +14,24 @@ h1, p
 	background: #FEFEFE
 	border: 2px solid #FAFAFA
 	box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4)
-	margin: 0 2px 15px
+	margin: 10px
 	padding: 5px
 	background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9)
 	width: 200px
+	height: 380px
+
 
 	&.inactive
-		background: green
+		opacity: .5
 	&.active
-		background: red
+		opacity: 1
+
 
 	img
 		max-width: 200px
 		max-height: 200px
 
+
+
+.highlighted
+	background-color: yellow

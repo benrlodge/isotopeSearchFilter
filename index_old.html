@@ -18,21 +18,15 @@
 </head>
 <body>
 
-
-
-
-
-
-
 <div class='container'>
 
 
 <h1>Search Seinfeld Characters</h1>
-<!-- <div class="ui-widget"><br>
+<div class="ui-widget"><br>
   Search: <input id="searchInput">
-</div> -->
+</div>
 
-<input type="text" id="search-term" />
+    <p>Search v2: <input type="text" id="searchfor"/></p>
 
 
 <br>
@@ -95,8 +89,6 @@
 
 
 
-
-
 	
 	<script src="javascripts/vendor/jquery.js"></script>
 	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
@@ -105,26 +97,15 @@
 
 	
 
-
-
 	<script>
 
 
 	$(document).ready(function(){
-		var $container = $('.item-container')
-		
-		$container.BL_Searchable({});
-
-		$container.isotope({
-			itemSelector: '.item',
-			layoutMode: 'fitRows'		
-		});
-
-
+		$('.container').BL_Searchable({});
 	})
 
 	</script>
-		
+	
 	
 </body>
 </html>
