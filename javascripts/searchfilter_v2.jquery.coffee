@@ -5,35 +5,55 @@ $ = jQuery
 
 
 
-
 $.fn.BL_Searchable = (options) ->
 	defaults = 
+		itemsContainer	: 	$(".item-container")
 		itemSelector	:	$('.item')
-		input 			:	$('#searchInput')
-		item_list 		:	$('.search-item')
-		item_name		:	$('.item-name')
-
-		searchable 		: 	$('.searchable')
-
-		all_items		: 	''  # change name later...
-		search_items	:	[]
-
-		filter_dom		:	$('.item-list')
-		make_items		: 	$('.create-search-items')
-
+		inputSearch 	:	$('#search-term')
+		highlightClass 	: 	'highlighted'
+		match_count		: 	$('.match_count')
 
 	options = $.extend(defaults, options)
 	
 
+	# Remove highlighted items
+	removeHighs = ->		
+		$("." + options.highlightClass).each (i, v) ->
+			$parent = $(this).parent()
+			$(this).contents().unwrap()
+			$parent.get(0).normalize()
 
 
 
-	searchAndHighlight = (searchTerm, selector, highlightClass, removePreviousHighlights) ->
+	# Combine matching functions
+	matchCountShow = ->
+
+		matches = matchCounter.value()
+		options.match_count.html(matches)
+
+
+	matchCounter = (->
+
+		i = 0
+		increment: -> i++
+		value: -> i
+		reset: -> i = 0
+
+	)()
+
+
+
+
+	searchAndHighlight = (searchTerm, selector, removePreviousHighlights) ->
 		if searchTerm	
 
 			selector = selector or "body" #use body as selector if none provided
 			searchTermRegEx = new RegExp("(" + searchTerm + ")", "gi")
-			matches = 0
+			
+			matchCounter.reset()
+			
+			log 'reset to: ' + matchCounter.value()
+
 			helper = {}
 
 
@@ -41,16 +61,15 @@ $.fn.BL_Searchable = (options) ->
 
 				if node.nodeType is 3
 					if node.nodeValue.match(searchTermRegEx)
-						matches++
+						matchCounter.increment()
+
+						log 'Node MATCH: ' + matchCounter.value()
 						tempNode = document.createElement("span")
-						tempNode.innerHTML = node.nodeValue.replace(searchTermRegEx, "<span class='" + highlightClass + "'>$1</span>")
+						tempNode.innerHTML = node.nodeValue.replace(searchTermRegEx, "<span class='" + options.highlightClass + "'>$1</span>")
 						node.parentNode.replaceChild tempNode, node
 
-						
-						$('.item').removeClass('active').removeClass('inactive')
-
+						options.itemSelector.removeClass('active').removeClass('inactive')
 						$('.highlighted').closest('.item').addClass('active').siblings().addClass('inactive')
-
 
 
 
@@ -59,23 +78,16 @@ $.fn.BL_Searchable = (options) ->
 						helper.doHighlight(node.childNodes[i], searchTerm)
 						
 			
-			if removePreviousHighlights
-
-				$("." + highlightClass).each (i, v) ->
-					$parent = $(this).parent()
-					$(this).contents().unwrap()
-					$parent.get(0).normalize()
-					return
-
+			removeHighs() if removePreviousHighlights
+				
 			
-			
-			$.each $(selector).children(), (index, val) ->
-				log "EACH LOOP"
+			$.each selector.children(), (index, val) ->
 				helper.doHighlight this, searchTerm
 			
+			
+			matchCountShow()
 
-			return matches
-			false
+			
 
 
 
@@ -83,27 +95,21 @@ $.fn.BL_Searchable = (options) ->
 
 	@each ->
 
-		# $("#searchfor").keyup -> search()
-
-		$("#search-term").keyup ->
-			$dom_search = $("#search-term").val()
-			searchAndHighlight( $dom_search, ".item-container", "highlighted", true )
+		options.inputSearch.keyup ->
 			
-			if $dom_search == ''
-				log 'empty'
+			searchAndHighlight( options.inputSearch.val(), options.itemsContainer, true )
+
+
+			if options.inputSearch.val() == ''
+				removeHighs()
+				options.itemSelector.removeClass('inactive')
+				options.itemsContainer.isotope filter: ''
 				
-				## REMOVE NODES
-				
-
-				$('.item').removeClass('inactive')
-				$('.item-container').isotope
-					filter: ''
-
-
+				# matchCount.showDOM()
+				# Update Counts
 
 			else		
-				$('.item-container').isotope
-					filter: '.active'
+				options.itemsContainer.isotope filter: '.active'
 			
 					
 			

@@ -8,35 +8,61 @@
   $ = jQuery;
 
   $.fn.BL_Searchable = function(options) {
-    var defaults, searchAndHighlight;
+    var defaults, matchCountShow, matchCounter, removeHighs, searchAndHighlight;
     defaults = {
+      itemsContainer: $(".item-container"),
       itemSelector: $('.item'),
-      input: $('#searchInput'),
-      item_list: $('.search-item'),
-      item_name: $('.item-name'),
-      searchable: $('.searchable'),
-      all_items: '',
-      search_items: [],
-      filter_dom: $('.item-list'),
-      make_items: $('.create-search-items')
+      inputSearch: $('#search-term'),
+      highlightClass: 'highlighted',
+      match_count: $('.match_count')
     };
     options = $.extend(defaults, options);
-    searchAndHighlight = function(searchTerm, selector, highlightClass, removePreviousHighlights) {
-      var helper, matches, searchTermRegEx;
+    removeHighs = function() {
+      return $("." + options.highlightClass).each(function(i, v) {
+        var $parent;
+        $parent = $(this).parent();
+        $(this).contents().unwrap();
+        return $parent.get(0).normalize();
+      });
+    };
+    matchCountShow = function() {
+      var matches;
+      matches = matchCounter.value();
+      return options.match_count.html(matches);
+    };
+    matchCounter = (function() {
+      var i;
+      i = 0;
+      return {
+        increment: function() {
+          return i++;
+        },
+        value: function() {
+          return i;
+        },
+        reset: function() {
+          return i = 0;
+        }
+      };
+    })();
+    searchAndHighlight = function(searchTerm, selector, removePreviousHighlights) {
+      var helper, searchTermRegEx;
       if (searchTerm) {
         selector = selector || "body";
         searchTermRegEx = new RegExp("(" + searchTerm + ")", "gi");
-        matches = 0;
+        matchCounter.reset();
+        log('reset to: ' + matchCounter.value());
         helper = {};
         helper.doHighlight = function(node, searchTerm) {
           var tempNode;
           if (node.nodeType === 3) {
             if (node.nodeValue.match(searchTermRegEx)) {
-              matches++;
+              matchCounter.increment();
+              log('Node MATCH: ' + matchCounter.value());
               tempNode = document.createElement("span");
-              tempNode.innerHTML = node.nodeValue.replace(searchTermRegEx, "<span class='" + highlightClass + "'>$1</span>");
+              tempNode.innerHTML = node.nodeValue.replace(searchTermRegEx, "<span class='" + options.highlightClass + "'>$1</span>");
               node.parentNode.replaceChild(tempNode, node);
-              $('.item').removeClass('active').removeClass('inactive');
+              options.itemSelector.removeClass('active').removeClass('inactive');
               return $('.highlighted').closest('.item').addClass('active').siblings().addClass('inactive');
             }
           } else if (node.nodeType === 1 && node.childNodes && !/(style|script)/i.test(node.tagName)) {
@@ -46,34 +72,25 @@
           }
         };
         if (removePreviousHighlights) {
-          $("." + highlightClass).each(function(i, v) {
-            var $parent;
-            $parent = $(this).parent();
-            $(this).contents().unwrap();
-            $parent.get(0).normalize();
-          });
+          removeHighs();
         }
-        $.each($(selector).children(), function(index, val) {
-          log("EACH LOOP");
+        $.each(selector.children(), function(index, val) {
           return helper.doHighlight(this, searchTerm);
         });
-        return matches;
-        return false;
+        return matchCountShow();
       }
     };
     return this.each(function() {
-      return $("#search-term").keyup(function() {
-        var $dom_search;
-        $dom_search = $("#search-term").val();
-        searchAndHighlight($dom_search, ".item-container", "highlighted", true);
-        if ($dom_search === '') {
-          log('empty');
-          $('.item').removeClass('inactive');
-          return $('.item-container').isotope({
+      return options.inputSearch.keyup(function() {
+        searchAndHighlight(options.inputSearch.val(), options.itemsContainer, true);
+        if (options.inputSearch.val() === '') {
+          removeHighs();
+          options.itemSelector.removeClass('inactive');
+          return options.itemsContainer.isotope({
             filter: ''
           });
         } else {
-          return $('.item-container').isotope({
+          return options.itemsContainer.isotope({
             filter: '.active'
           });
         }
