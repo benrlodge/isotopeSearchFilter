@@ -9,77 +9,66 @@ $(document).ready -> BL_Searchable.init()
 
 BL_Searchable = 
 
+	item 		:	$('.item')
 	input 		:	$('#searchInput')
-	tags 		:	$('.tags')
+	item_list 	:	$('.item-list')
 	item_name	:	$('.item-name')
 
-	all_tags 	: 	''  # change name later...
-	array_names :	[]
+	all_items	: 	''  # change name later...
 	search_items:	[]
 
+	filter_dom	:	$('.item-list')
 
 
  
 	init: ->
-		@bindEvents()
-		@search_items = @getTags()
+		@search_items = @getFilterItems()
 		@searchTags(@search_items)
 
 
 
-
-
-		
-
-	bindEvents: ->
-		scope = this
-		@input.keypress (e) ->
-			keyCode = e.keyCode || e.which
-			if (keyCode == 13)
-				scope.searchTags()
-			
-
-
-	getTags: ->
+	getFilterItems: ->
 		scope = this
 
 		# Add comma to end of tag list if doesn't already have one
-		@tags.each ->
-			text = $(this).text()
+		@item_list.each ->
+			text = ($(this).text()).trim()
 			lastChar = text.substr(text.length - 1)
 			text += ',' if lastChar != ','
-			scope.all_tags += text
-
-		# Move tags into array
-		all_tags_array = @all_tags.split(',')
-
-		# Loop through names and toss in array
-		@item_name.each ->
-			name = $(this).text()
-			scope.array_names.push(name)
+			scope.all_items += text
 
 
-		# Combine all searchable arrays
-		return $searchable = this.array_names.concat(all_tags_array)
+		@all_items = @all_items.split(',')
+		return @removeDups(@all_items)
 
+
+
+
+	removeDups: (items) ->
+		uniqueNames = []
+		$.each items, (i, el) ->
+			uniqueNames.push el  if $.inArray(el, uniqueNames) is -1
+		return uniqueNames
 
 
 
 	searchTags: (items) ->
 		scope = this
-
+		log items
 		@input.autocomplete source: items
+
+		@input.keypress (e) ->
+			keyCode = e.keyCode || e.which
+			if (keyCode == 13)
+
+				
+				typed = (@value).trim()
+				scope.item_list.closest('.item').removeClass('active')
+				scope.item_list.closest('.item').removeClass('inactive') 
+
+				scope.item_list.each ->
+					if $(this).text().indexOf(typed) >= 0 
+						$(this).closest(scope.item).addClass('active') 
+
+				
 			
-		@input.on("autocompletechange change", ->
-			log 'input autocompletechange'
-			typed = @value
-			scope.item_name.removeClass('active')
-			scope.item_name.removeClass('inactive')
-
-
-			scope.item_name.filter(->
-				$(this).text() is typed
-			).closest('.item').addClass('active').siblings().addClass('inactive')
-
-		).change()
-	

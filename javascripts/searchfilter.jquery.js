@@ -10,64 +10,63 @@
   });
 
   BL_Searchable = {
+    item: $('.item'),
     input: $('#searchInput'),
-    tags: $('.tags'),
+    item_list: $('.item-list'),
     item_name: $('.item-name'),
-    all_tags: '',
-    array_names: [],
+    all_items: '',
     search_items: [],
+    filter_dom: $('.item-list'),
     init: function() {
-      this.bindEvents();
-      this.search_items = this.getTags();
+      this.search_items = this.getFilterItems();
       return this.searchTags(this.search_items);
     },
-    bindEvents: function() {
+    getFilterItems: function() {
       var scope;
       scope = this;
-      return this.input.keypress(function(e) {
-        var keyCode;
-        keyCode = e.keyCode || e.which;
-        if (keyCode === 13) {
-          return scope.searchTags();
-        }
-      });
-    },
-    getTags: function() {
-      var $searchable, all_tags_array, scope;
-      scope = this;
-      this.tags.each(function() {
+      this.item_list.each(function() {
         var lastChar, text;
-        text = $(this).text();
+        text = ($(this).text()).trim();
         lastChar = text.substr(text.length - 1);
         if (lastChar !== ',') {
           text += ',';
         }
-        return scope.all_tags += text;
+        return scope.all_items += text;
       });
-      all_tags_array = this.all_tags.split(',');
-      this.item_name.each(function() {
-        var name;
-        name = $(this).text();
-        return scope.array_names.push(name);
+      this.all_items = this.all_items.split(',');
+      return this.removeDups(this.all_items);
+    },
+    removeDups: function(items) {
+      var uniqueNames;
+      uniqueNames = [];
+      $.each(items, function(i, el) {
+        if ($.inArray(el, uniqueNames) === -1) {
+          return uniqueNames.push(el);
+        }
       });
-      return $searchable = this.array_names.concat(all_tags_array);
+      return uniqueNames;
     },
     searchTags: function(items) {
       var scope;
       scope = this;
+      log(items);
       this.input.autocomplete({
         source: items
       });
-      return this.input.on("autocompletechange change", function() {
-        var typed;
-        log('input autocompletechange');
-        typed = this.value;
-        scope.item_name.removeClass('active');
-        scope.item_name.removeClass('inactive');
-        return scope.item_name.filter(function() {
-          return $(this).text() === typed;
-        }).closest('.item').addClass('active').siblings().addClass('inactive');
-      }).change();
+      return this.input.keypress(function(e) {
+        var keyCode, typed;
+        keyCode = e.keyCode || e.which;
+        if (keyCode === 13) {
+          typed = this.value.trim();
+          scope.item_list.closest('.item').removeClass('active');
+          scope.item_list.closest('.item').removeClass('inactive');
+          return scope.item_list.each(function() {
+            if ($(this).text().indexOf(typed) >= 0) {
+              return $(this).closest(scope.item).addClass('active');
+            }
+          });
+        }
+      });
     }
   };
 
