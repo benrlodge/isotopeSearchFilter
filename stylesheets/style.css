@@ -17,15 +17,9 @@ h1, p {
   margin: 10px;
   padding: 5px;
   background: -webkit-linear-gradient(45deg, white, #f9f9f9);
-  width: 200px;
-  height: 380px; }
-  .item.inactive {
-    opacity: 0.5; }
-  .item.active {
-    opacity: 1; }
+  width: 300px; }
   .item img {
-    max-width: 200px;
-    max-height: 200px; }
+    width: 100%; }
 
 .highlighted {
   background-color: yellow; }

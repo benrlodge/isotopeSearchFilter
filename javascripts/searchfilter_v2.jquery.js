@@ -8,13 +8,14 @@
   $ = jQuery;
 
   $.fn.BL_Searchable = function(options) {
-    var defaults, matchCountShow, matchCounter, removeHighs, searchAndHighlight;
+    var defaults, init, matchCountUpdate, removeHighs, searchAndHighlight, sliceBio;
     defaults = {
       itemsContainer: $(".item-container"),
       itemSelector: $('.item'),
       inputSearch: $('#search-term'),
       highlightClass: 'highlighted',
-      match_count: $('.match_count')
+      match_count: $('.match_count'),
+      description: $('.description')
     };
     options = $.extend(defaults, options);
     removeHighs = function() {
@@ -25,40 +26,22 @@
         return $parent.get(0).normalize();
       });
     };
-    matchCountShow = function() {
+    matchCountUpdate = function(val) {
       var matches;
-      matches = matchCounter.value();
+      log('updating count');
+      matches = $('.item:visible').length;
       return options.match_count.html(matches);
     };
-    matchCounter = (function() {
-      var i;
-      i = 0;
-      return {
-        increment: function() {
-          return i++;
-        },
-        value: function() {
-          return i;
-        },
-        reset: function() {
-          return i = 0;
-        }
-      };
-    })();
     searchAndHighlight = function(searchTerm, selector, removePreviousHighlights) {
       var helper, searchTermRegEx;
       if (searchTerm) {
         selector = selector || "body";
         searchTermRegEx = new RegExp("(" + searchTerm + ")", "gi");
-        matchCounter.reset();
-        log('reset to: ' + matchCounter.value());
         helper = {};
         helper.doHighlight = function(node, searchTerm) {
           var tempNode;
           if (node.nodeType === 3) {
             if (node.nodeValue.match(searchTermRegEx)) {
-              matchCounter.increment();
-              log('Node MATCH: ' + matchCounter.value());
               tempNode = document.createElement("span");
               tempNode.innerHTML = node.nodeValue.replace(searchTermRegEx, "<span class='" + options.highlightClass + "'>$1</span>");
               node.parentNode.replaceChild(tempNode, node);
@@ -77,22 +60,37 @@
         $.each(selector.children(), function(index, val) {
           return helper.doHighlight(this, searchTerm);
         });
-        return matchCountShow();
+        return matchCountUpdate();
       }
     };
+    sliceBio = function() {
+      var $description;
+      $description = options.description;
+      return $description.each(function() {
+        var short, text;
+        text = $.trim($(this).text());
+        short = text.substring(0, 184) + '...';
+        return $(this).html(text);
+      });
+    };
+    init = function() {
+      matchCountUpdate();
+      return sliceBio();
+    };
     return this.each(function() {
+      init();
       return options.inputSearch.keyup(function() {
-        searchAndHighlight(options.inputSearch.val(), options.itemsContainer, true);
         if (options.inputSearch.val() === '') {
           removeHighs();
           options.itemSelector.removeClass('inactive');
           return options.itemsContainer.isotope({
             filter: ''
-          });
+          }, matchCountUpdate);
         } else {
+          searchAndHighlight(options.inputSearch.val(), options.itemsContainer, true);
           return options.itemsContainer.isotope({
             filter: '.active'
-          });
+          }, matchCountUpdate);
         }
       });
     });

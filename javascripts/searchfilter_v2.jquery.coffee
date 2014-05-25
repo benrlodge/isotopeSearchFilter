@@ -12,6 +12,7 @@ $.fn.BL_Searchable = (options) ->
 		inputSearch 	:	$('#search-term')
 		highlightClass 	: 	'highlighted'
 		match_count		: 	$('.match_count')
+		description 	: 	$('.description')
 
 	options = $.extend(defaults, options)
 	
@@ -25,21 +26,11 @@ $.fn.BL_Searchable = (options) ->
 
 
 
-	# Combine matching functions
-	matchCountShow = ->
 
-		matches = matchCounter.value()
+	matchCountUpdate = (val) ->
+		log 'updating count'
+		matches = $('.item:visible').length
 		options.match_count.html(matches)
-
-
-	matchCounter = (->
-
-		i = 0
-		increment: -> i++
-		value: -> i
-		reset: -> i = 0
-
-	)()
 
 
 
@@ -50,27 +41,19 @@ $.fn.BL_Searchable = (options) ->
 			selector = selector or "body" #use body as selector if none provided
 			searchTermRegEx = new RegExp("(" + searchTerm + ")", "gi")
 			
-			matchCounter.reset()
-			
-			log 'reset to: ' + matchCounter.value()
-
 			helper = {}
-
 
 			helper.doHighlight = (node, searchTerm) ->
 
 				if node.nodeType is 3
 					if node.nodeValue.match(searchTermRegEx)
-						matchCounter.increment()
 
-						log 'Node MATCH: ' + matchCounter.value()
 						tempNode = document.createElement("span")
 						tempNode.innerHTML = node.nodeValue.replace(searchTermRegEx, "<span class='" + options.highlightClass + "'>$1</span>")
 						node.parentNode.replaceChild tempNode, node
 
 						options.itemSelector.removeClass('active').removeClass('inactive')
 						$('.highlighted').closest('.item').addClass('active').siblings().addClass('inactive')
-
 
 
 				else if node.nodeType is 1 and node.childNodes and not /(style|script)/i.test(node.tagName)
@@ -80,37 +63,54 @@ $.fn.BL_Searchable = (options) ->
 			
 			removeHighs() if removePreviousHighlights
 				
-			
+
 			$.each selector.children(), (index, val) ->
-				helper.doHighlight this, searchTerm
+				helper.doHighlight this, searchTerm			
 			
-			
-			matchCountShow()
-
-			
+			matchCountUpdate()
 
 
+
+	sliceBio = () ->
+		$description = options.description
+		
+		$description.each ->
+			text = $.trim($(this).text())
+			#check if longer than string length then only do next if longer
+			short = text.substring(0,184) + '...'
+			
+			# Hide rest of long version
+
+			$(this).html(text)		
+
+
+	init = ->
+		matchCountUpdate()
+		sliceBio()
 
 
 
 	@each ->
 
+		init()
+
 		options.inputSearch.keyup ->
-			
-			searchAndHighlight( options.inputSearch.val(), options.itemsContainer, true )
-
-
 			if options.inputSearch.val() == ''
 				removeHighs()
 				options.itemSelector.removeClass('inactive')
-				options.itemsContainer.isotope filter: ''
+				options.itemsContainer.isotope
+					filter: ''
+				, matchCountUpdate
 				
-				# matchCount.showDOM()
-				# Update Counts
 
 			else		
-				options.itemsContainer.isotope filter: '.active'
+				searchAndHighlight( options.inputSearch.val(), options.itemsContainer, true )
+				options.itemsContainer.isotope 
+					filter: '.active'
+				, matchCountUpdate
 			
+
+
 					
 			
 
