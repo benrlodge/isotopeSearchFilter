@@ -35,7 +35,7 @@ $.fn.isotopeSearchFilter = (options) ->
 
 		
 		## NEED TO ADD ONLY FILTER IN ITEM CONTAINER - TODO
-		$( ".item-container:contains(#{searchTerm})" ).closest('.item').addClass('active')
+		$( ":contains(#{searchTerm})" ).closest('.item').addClass('active')
 		updateFilter('.active')
 
 
