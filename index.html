@@ -6,7 +6,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Search Autocomplete Filter</title>
+	<title>Isotope Search and Filter jQuery Plugin Demo</title>
 
 	
 	<link rel="stylesheet" href="stylesheets/style.css">
@@ -167,7 +167,7 @@
 	<script src="javascripts/vendor/jquery.js"></script>
 	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 	<script src="javascripts/vendor/isotope.pkgd.js"></script>
-	<script src="javascripts/BL_SearchFilter.jquery.js"></script>
+	<script src="javascripts/isotopeSearchFilter.jquery.js"></script>
 
 	
 
@@ -179,7 +179,7 @@
 	$(document).ready(function(){
 		var $container = $('.item-container')
 		
-		$container.BL_Searchable({});
+		$container.isotopeSearchFilter();
 
 		$container.isotope({
 			itemSelector: '.item',

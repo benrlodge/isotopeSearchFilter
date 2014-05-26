@@ -4,18 +4,17 @@ log = (m) ->
 $ = jQuery
 
 
-$.fn.BL_SearchFilter = (options) ->
+$.fn.isotopeSearchFilter = (options) ->
 	defaults = 
 		itemsContainer	: 	$(".item-container")
-		itemSelector		:		$('.item')
-		inputSearch 		:		$('#search-term')
-		match_count			: 	$('.match_count')
-		description 		: 	$('.description')
-		truncate 				:		false
+		itemSelector	:	$('.item')
+		inputSearch 	:	$('#search-term')
+		match_count		: 	$('.match_count')
+		description 	: 	$('.description')
+		truncate 		:	false
 
 	options = $.extend(defaults, options)
 	
-
 
 	# Isotope Filter Logic
 	updateFilter = (val) ->
@@ -26,8 +25,6 @@ $.fn.BL_SearchFilter = (options) ->
 		options.itemsContainer.isotope "on", "layoutComplete", (isoInstance, laidOutItems) ->
 			matchCount(laidOutItems.length)
 
-
-
 	#show number of matches
 	matchCount = (count) ->
 		options.match_count.html(count)
@@ -37,8 +34,8 @@ $.fn.BL_SearchFilter = (options) ->
 		$('.item').removeClass('active')
 
 		
-		## ADD ONLY FILTER IN ITEM CONTAINER - TODO
-		$( ":contains(#{searchTerm})" ).closest('.item').addClass('active')
+		## NEED TO ADD ONLY FILTER IN ITEM CONTAINER - TODO
+		$( ".item-container:contains(#{searchTerm})" ).closest('.item').addClass('active')
 		updateFilter('.active')
 
 
