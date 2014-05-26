@@ -7,25 +7,28 @@
 
   $ = jQuery;
 
-  $.fn.BL_Searchable = function(options) {
-    var defaults, filterCallback, searchDOM, updateFilter;
+  $.fn.BL_SearchFilter = function(options) {
+    var defaults, matchCount, searchDOM, updateFilter;
     defaults = {
       itemsContainer: $(".item-container"),
       itemSelector: $('.item'),
       inputSearch: $('#search-term'),
-      highlightClass: 'highlighted',
       match_count: $('.match_count'),
       description: $('.description'),
       truncate: false
     };
     options = $.extend(defaults, options);
     updateFilter = function(val) {
-      return options.itemsContainer.isotope({
-        filter: val
-      }, filterCallback);
+      options.itemsContainer.isotope({
+        filter: val,
+        layoutComplete: matchCount
+      });
+      return options.itemsContainer.isotope("on", "layoutComplete", function(isoInstance, laidOutItems) {
+        return matchCount(laidOutItems.length);
+      });
     };
-    filterCallback = function() {
-      return log('filter callback');
+    matchCount = function(count) {
+      return options.match_count.html(count);
     };
     searchDOM = function(searchTerm) {
       $('.item').removeClass('active');

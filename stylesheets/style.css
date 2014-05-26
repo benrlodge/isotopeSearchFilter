@@ -16,7 +16,7 @@ h1, p {
   box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
   margin: 10px;
   padding: 5px;
-  background: -webkit-linear-gradient(45deg, white, #f9f9f9);
+  background: #d2d2d2;
   width: 300px; }
   .item img {
     width: 100%; }

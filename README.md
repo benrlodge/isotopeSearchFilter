@@ -1,1 +1,1 @@
-Working on a plugin that gives auto-complete search and filtering.
+This is a jQuery plugin that combines internal page search functionality with the Isotope plugin
