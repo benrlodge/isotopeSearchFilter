@@ -16,6 +16,15 @@ $.fn.isotopeSearchFilter = (options) ->
 	options = $.extend(defaults, options)
 	
 
+	
+	# Helper: Case Insensitize :contains
+	$.extend $.expr[":"],
+		containsNC: (elem, i, match, array) ->
+    		(elem.textContent or elem.innerText or "").toLowerCase().indexOf((match[3] or "").toLowerCase()) >= 0
+
+
+
+
 	# Isotope Filter Logic
 	updateFilter = (val) ->
 		options.itemsContainer.isotope
@@ -26,18 +35,18 @@ $.fn.isotopeSearchFilter = (options) ->
 			matchCount(laidOutItems.length)
 
 
-	#show number of matches
+	# Show number of matches
 	matchCount = (count) ->
 		options.match_count.html(count)
 
 
 
+	# Find Matched Items
 	searchDOM = (searchTerm) ->
 		$('.item').removeClass('active')
-
 		
 		options.itemsContainer
-			.find($( ":contains(#{searchTerm})" ))
+			.find($( ":containsNC(#{searchTerm})" ))
 			.closest('.item')
 			.addClass('active')
 		updateFilter('.active')
