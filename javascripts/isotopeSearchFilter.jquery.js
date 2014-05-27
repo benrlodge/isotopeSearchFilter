@@ -7,7 +7,7 @@
 
   $ = jQuery;
 
-  $.fn.BL_SearchFilter = function(options) {
+  $.fn.isotopeSearchFilter = function(options) {
     var defaults, matchCount, searchDOM, updateFilter;
     defaults = {
       itemsContainer: $(".item-container"),
@@ -32,7 +32,7 @@
     };
     searchDOM = function(searchTerm) {
       $('.item').removeClass('active');
-      $(":contains(" + searchTerm + ")").closest('.item').addClass('active');
+      options.itemsContainer.find($(":contains(" + searchTerm + ")")).closest('.item').addClass('active');
       return updateFilter('.active');
     };
     return this.each(function() {
