@@ -23,21 +23,16 @@
 
 <div class='container'>
 
-
 <h1>Search Stuff</h1>(e.g. animals, fail)
-<p>Showing <span class='match_count'></span>  things</p>
-<!-- <div class="ui-widget"><br>
-  Search: <input id="searchInput">
-</div> -->
 
 <input type="text" id="search-term" />
 
 
-<br>
+<hr>
 
 	<div class='item-container'>
 
-		<div class='item'>
+		<div class='item' data-filters='animals'>
 			<img src="img/drunkcat.gif">
 		  	<p class='search-item searchable'>Drunk Cat</p>
 		  	<hr>
@@ -49,7 +44,7 @@
 
 
 
-		<div class='item'>
+		<div class='item' data-filters='people fail'>
 			<img src="img/treadmill.gif">
 		  	<p class='search-item searchable'>Treadmill Dance</p>
 		  	<hr>
@@ -58,10 +53,18 @@
 		  	</div>		
 		</div>
 
+		<div class='item' data-filters='animals people'>
+			<img src="img/catfive.gif">
+		  	<p class='search-item searchable'>Cat Five</p>
+		  	<hr>
+		  	<div class='description create-search-items searchable'>
+			  	People, animals, high five
+		  	</div>		
+		</div>
 
 
 
-		<div class='item'>
+		<div class='item' data-filters='animals fail'>
 			<img src="img/dogfail.gif">
 		  	<p class='search-item searchable'>Dog Fail</p>
 		  	<hr>
@@ -71,7 +74,7 @@
 		</div>
 
 
-		<div class='item'>
+		<div class='item' data-filters='people'>
 			<img src="img/bucket.gif">
 		  	<p class='search-item searchable'>Bucket Head</p>
 		  	<hr>
@@ -81,7 +84,7 @@
 		</div>
 
 
-		<div class='item'>
+		<div class='item' data-filters='people'>
 			<img src="img/guitarkarate.gif">
 		  	<p class='search-item searchable'>Guitar Karate</p>
 		  	<hr>
@@ -90,7 +93,7 @@
 		  	</div>		
 		</div>
 
-		<div class='item'>
+		<div class='item' data-filters='animals fail'>
 			<img src="img/cat_jump.gif">
 		  	<p class='search-item searchable'>Cat Jump</p>
 		  	<hr>
@@ -99,7 +102,7 @@
 		  	</div>		
 		</div>
 
-		<div class='item'>
+		<div class='item' data-filters='animals'>
 			<img src="img/jackie_dog.gif">
 		  	<p class='search-item searchable'>Jackie Dog</p>
 		  	<hr>
@@ -109,7 +112,7 @@
 		</div>
 
 
-		<div class='item'>
+		<div class='item' data-filters='people'>
 			<img src="img/bball.gif">
 		  	<p class='search-item searchable'>Crazy Arms</p>
 		  	<hr>
@@ -118,7 +121,7 @@
 		  	</div>		
 		</div>
 
-		<div class='item'>
+		<div class='item' data-filters='animals'>
 			<img src="img/dog_slide.gif">
 		  	<p class='search-item searchable'>Dog Slide</p>
 		  	<hr>
@@ -131,7 +134,7 @@
 
 
 
-		<div class='item'>
+		<div class='item fail'>
 			<img src="img/gymnastics.gif">
 		  	<p class='search-item searchable'>Toilet Gymnastics</p>
 		  	<hr>
@@ -158,16 +161,11 @@
 
 
 
-
-	
 	<script src="javascripts/vendor/jquery.js"></script>
-	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 	<script src="javascripts/vendor/isotope.pkgd.js"></script>
 	<script src="javascripts/isotopeSearchFilter.jquery.js"></script>
 
 	
-
-
 
 	<script>
 
@@ -175,13 +173,10 @@
 	$(document).ready(function(){
 		var $container = $('.item-container')
 		
-		$container.isotopeSearchFilter();
-
 		$container.isotope({
 			itemSelector: '.item',
-			layoutMode: 'fitRows'		
-		});
-
+			layoutMode: 'fitRows'	
+		}).isotopeSearchFilter();
 
 	})
 

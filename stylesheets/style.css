@@ -21,3 +21,17 @@ h1, p {
   width: 300px; }
   .item img {
     width: 100%; }
+
+.filters {
+  margin: 0;
+  margin-left: 10px;
+  padding: 0; }
+  .filters li {
+    list-style: none; }
+    .filters li span {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border: black 1px solid; }
+      .filters li span.active {
+        background: black; }

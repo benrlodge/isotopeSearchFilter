@@ -1,0 +1,14 @@
+<h1 id="isotopesearchfilter-jquery-plugin">isotopeSearchFilter jquery plugin</h1>
+<h3 id="this-is-a-jquery-plugin-that-combines-internal-page-search-functionality-with-the-isotope-plugin">This is a jQuery plugin that combines internal page search functionality with the Isotope plugin</h3>
+<h3 id="how-to-use-">How to Use:</h3>
+<p><a href="http://isotope.metafizzy.co/">Load the isotope plugin</a> and then you can just chain isotopeSearchFilter() right onto it like you can see below.</p>
+<pre><code class="lang-javascript">
+    $(document).ready(function(){
+        var $container = $(&#39;.item-container&#39;)
+
+        $container.isotope({
+            itemSelector: &#39;.item&#39;,
+            layoutMode: &#39;fitRows&#39;    
+        }).isotopeSearchFilter();
+
+    })</code></pre>
