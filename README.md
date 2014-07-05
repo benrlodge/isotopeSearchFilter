@@ -2,6 +2,8 @@
 
 ### This is a jQuery plugin that combines internal page search functionality with the Isotope plugin
 
+### Demo:
+[http://www.benrlodge.com/apps/isotopeSearchFilter](http://www.benrlodge.com/apps/isotopeSearchFilter)
 
 ### How to Use: 
 
@@ -19,6 +21,17 @@ If your sorting containers use images, I recommend David DeSandro's [imagesloade
 			layoutMode: 'fitRows'	
 		}).isotopeSearchFilter();
 
+	})
+
+```
+
+Options available to override include the name of the container that includes your items, and the text input box. See the source for more detail.
+
+
+```javascript
+	isotopeSearchFilter({
+		itemsContainer	: 	$(".item-container"),
+		inputSearch		:	$('#search-term'),
 	})
 
 ```
