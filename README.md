@@ -3,7 +3,7 @@
 ### This is a jQuery plugin that combines internal page search functionality with the Isotope plugin
 
 ### Demo:
-[http://www.benrlodge.com/apps/isotopeSearchFilter](http://www.benrlodge.com/apps/isotopeSearchFilter)
+[http://benrlodge.github.io/isotopeSearchFilter/](http://benrlodge.github.io/isotopeSearchFilter/)
 
 ### How to Use: 
 
