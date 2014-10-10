@@ -4,7 +4,6 @@ $.fn.isotopeSearchFilter = (options) ->
 		inputSearch		:	$('#search-term')
 
 
-
 	options = $.extend(defaults, options)
 	
 	# Helper: Case Insensitize :contains

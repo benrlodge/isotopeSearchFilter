@@ -114,7 +114,6 @@
 		  	</div>		
 		</div>
 
-
 		<div class='item' data-filters='people'>
 			<img src="img/eight.png">
 		  	<p class='search-item searchable'>Flower Dog</p>
@@ -126,6 +125,8 @@
 
 	
 
+	
+
 
 	</div> <!-- //item container -->
 
@@ -134,6 +135,8 @@
 
 
 
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.min.js"></script>
 	<script src="javascripts/vendor/jquery.js"></script>
 	<script src="javascripts/vendor/isotope.pkgd.js"></script>
 	<script src="javascripts/isotopeSearchFilter.jquery.js"></script>
@@ -146,11 +149,15 @@
 	$(document).ready(function(){
 		var $container = $('.item-container')
 		
-		$container.isotope({
-			itemSelector: '.item',
-			layoutMode: 'fitRows'	
-		}).isotopeSearchFilter();
+		imagesLoaded( '.item-container', function() {
 
+			$container.isotope({
+				itemSelector: '.item',
+				layoutMode: 'fitRows'	
+			}).isotopeSearchFilter();
+
+
+		});
 	})
 
 	</script>
