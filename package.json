@@ -1,0 +1,9 @@
+{
+  "name": "iso",
+  "version": "1.0.0",
+  "author": "Ben - benrlodge@gmail.com",
+  "devDependencies": {
+    "grunt-contrib-coffee": "^0.12.0",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}
