@@ -1,6 +1,6 @@
 # isotopeSearchFilter jquery plugin
 
-### This is a jQuery plugin that combines internal page search functionality with the Isotope plugin
+#### This is a jQuery plugin that combines internal page search functionality with the Isotope plugin
 
 ### Demo:
 [http://benrlodge.github.io/isotopeSearchFilter/](http://benrlodge.github.io/isotopeSearchFilter/)
