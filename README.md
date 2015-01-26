@@ -35,3 +35,9 @@ Options available to override include the name of the container that includes yo
 	})
 
 ```
+
+### Related Plugins:
+
+#### isotopeDropdownFilters: 
+[https://github.com/benrlodge/isotopeDropdownFilters](https://github.com/benrlodge/isotopeDropdownFilters)
+This is a jQuery plugin that makes it easy to incorporate dropdowns and filtering using the Isotope plugin.
