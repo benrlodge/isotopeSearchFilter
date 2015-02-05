@@ -30,8 +30,11 @@ Options available to override include the name of the container that includes yo
 
 ```javascript
 	isotopeSearchFilter({
-		itemsContainer	: 	$(".item-container"),
-		inputSearch		:	$('#search-term'),
+		itemsContainer: $(".item-container"),
+      		itemSelector: '.item',
+      		filtersSelector: '.filters',
+      		searchResultsClassSelector: '.active',
+      		inputSearch: $('#search-term')
 	})
 
 ```
