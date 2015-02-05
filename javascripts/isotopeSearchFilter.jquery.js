@@ -1,11 +1,16 @@
 (function() {
   $.fn.isotopeSearchFilter = function(options) {
-    var defaults, filterCheck, searchDOM, updateFilter;
+    var defaults, filterCheck, searchDOM, updateFilter, activeClass;
     defaults = {
       itemsContainer: $(".item-container"),
+      itemSelector: '.item',
+      filtersSelector: '.filters',
+      searchResultsClassSelector: '.active',
       inputSearch: $('#search-term')
     };
     options = $.extend(defaults, options);
+    activeClass = options.searchResultsClassSelector.replace('.','');
+    
     $.extend($.expr[":"], {
       containsNC: function(elem, i, match, array) {
         return (elem.textContent || elem.innerText || "").toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
@@ -17,12 +22,12 @@
       });
     };
     searchDOM = function(searchTerm) {
-      $('.item').removeClass('active');
-      options.itemsContainer.find($(":containsNC(" + searchTerm + ")")).closest('.item').addClass('active');
-      return updateFilter('.active');
+      $(options.itemSelector).removeClass(activeClass);
+      options.itemsContainer.find($(":containsNC(" + searchTerm + ")")).closest(options.itemSelector).addClass(activeClass);
+      return updateFilter(options.searchResultsClassSelector);
     };
     filterCheck = function() {
-      return $('.filters').hasClass('active');
+      return $(options.filtersSelector).hasClass(activeClass);
     };
     return this.each(function() {
       return options.inputSearch.keyup(function() {
@@ -30,7 +35,7 @@
           return updateFilter('');
         } else {
           searchDOM(options.inputSearch.val());
-          return updateFilter('.active');
+          return updateFilter(options.searchResultsClassSelector);
         }
       });
     });
