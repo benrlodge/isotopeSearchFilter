@@ -1,6 +1,6 @@
 (function() {
   $.fn.isotopeSearchFilter = function(options) {
-    var defaults, filterCheck, searchDOM, updateFilter, activeClass;
+    var activeClass, defaults, filterCheck, searchDOM, updateFilter;
     defaults = {
       itemsContainer: $(".item-container"),
       itemSelector: '.item',
@@ -9,8 +9,7 @@
       inputSearch: $('#search-term')
     };
     options = $.extend(defaults, options);
-    activeClass = options.searchResultsClassSelector.replace('.','');
-    
+    activeClass = options.searchResultsClassSelector.replace('.', '');
     $.extend($.expr[":"], {
       containsNC: function(elem, i, match, array) {
         return (elem.textContent || elem.innerText || "").toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
@@ -22,8 +21,7 @@
       });
     };
     searchDOM = function(searchTerm) {
-      $(options.itemSelector).removeClass(activeClass);
-      options.itemsContainer.find($(":containsNC(" + searchTerm + ")")).closest(options.itemSelector).addClass(activeClass);
+      options.itemsContainer.removeClass(activeClass).find($(":containsNC(" + searchTerm + ")")).closest(options.itemSelector).addClass(activeClass);
       return updateFilter(options.searchResultsClassSelector);
     };
     filterCheck = function() {

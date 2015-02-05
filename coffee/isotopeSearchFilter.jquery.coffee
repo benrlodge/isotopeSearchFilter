@@ -2,12 +2,15 @@
 $.fn.isotopeSearchFilter = (options) ->
 
 	defaults = 
-		itemsContainer	: 	$(".item-container")
-		inputSearch		:	$('#search-term')
-
+		itemsContainer: 	$(".item-container")
+		itemSelector: '.item'
+		filtersSelector: '.filters'
+		searchResultsClassSelector: '.active'
+		inputSearch:	$('#search-term')
 
 	options = $.extend(defaults, options)
-	
+	activeClass = options.searchResultsClassSelector.replace('.','')
+
 	# Helper to Case Insensitize search terms
 	$.extend $.expr[":"],
 		containsNC: (elem, i, match, array) ->
@@ -20,19 +23,17 @@ $.fn.isotopeSearchFilter = (options) ->
 
 	# Find Matched Items
 	searchDOM = (searchTerm) ->
-		$('.item').removeClass('active')
-		
 		options.itemsContainer
+			.removeClass(activeClass)
 			.find($( ":containsNC(#{searchTerm})" ))
-			.closest('.item')
-			.addClass('active')
-		updateFilter('.active')
+			.closest(options.itemSelector)
+			.addClass(activeClass)
+		updateFilter(options.searchResultsClassSelector)
 
 
 	# Check if any filters are active
 	filterCheck = ->
-		return $('.filters').hasClass('active')
-
+		return $(options.filtersSelector).hasClass(activeClass)
 
 
 	@each ->
@@ -41,7 +42,8 @@ $.fn.isotopeSearchFilter = (options) ->
 				updateFilter('')
 			else		
 				searchDOM( options.inputSearch.val() )
-				updateFilter('.active')
+				updateFilter(options.searchResultsClassSelector)
+
 			
 
 			
