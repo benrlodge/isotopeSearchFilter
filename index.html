@@ -26,6 +26,11 @@
     		margin: 10px;
 			background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9);
 			box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+			width: 205px;
+    	}
+    	.item__image{
+    		height: 200px;
+    		overflow: hidden;
     	}
     	#search-term{
     		font-size: 14px;
@@ -33,7 +38,7 @@
     		width: 200px;
     	}
     	img{
-    		width: 200px;
+    		width: 100%;
     	}
     	.search-item{
     		text-transform: uppercase;
@@ -73,7 +78,9 @@
 	<div class='item-container'>
 
 		<div class='item' data-filters='animals'>
-			<img src="img/one.jpeg">
+			<div class='item__image'>
+				<img src="img/one.jpeg">
+			</div>
 		  	<p class='search-item searchable'>Mommy Chicken</p>
 		  	<hr>
 		  	<div class='description create-search-items searchable'>
@@ -81,7 +88,9 @@
 		  	</div>		
 		</div>
 		<div class='item' data-filters='people fail'>
-			<img src="img/two.jpeg">
+			<div class='item__image'>
+				<img src="img/two.jpeg">
+			</div>
 		  	<p class='search-item searchable'>Dog Swinger</p>
 		  	<hr>
 		  	<div class='description create-search-items searchable'>
@@ -89,7 +98,9 @@
 		  	</div>		
 		</div>
 		<div class='item' data-filters='animals people'>
-			<img src="img/three.jpg">
+			<div class='item__image'>
+				<img src="img/three.jpg">
+			</div>
 		  	<p class='search-item searchable'>Horsey Ride</p>
 		  	<hr>
 		  	<div class='description create-search-items searchable'>
@@ -97,7 +108,9 @@
 		  	</div>		
 		</div>
 		<div class='item' data-filters='animals fail'>
-			<img src="img/four.jpg">
+			<div class='item__image'>
+				<img src="img/four.jpg">
+			</div>
 		  	<p class='search-item searchable'>Cool Chicken</p>
 		  	<hr>
 		  	<div class='description create-search-items searchable'>
@@ -105,7 +118,9 @@
 		  	</div>		
 		</div>
 		<div class='item' data-filters='people'>
-			<img src="img/five.jpg">
+			<div class='item__image'>
+				<img src="img/five.jpg">
+			</div>
 		  	<p class='search-item searchable'>Melon Head</p>
 		  	<hr>
 		  	<div class='description create-search-items searchable'>
@@ -113,7 +128,9 @@
 		  	</div>		
 		</div>
 		<div class='item' data-filters='people'>
-			<img src="img/unicorn.jpeg">
+			<div class='item__image'>
+				<img src="img/unicorn.jpeg">
+			</div>
 		  	<p class='search-item searchable'>Unicorn Bike</p>
 		  	<hr>
 		  	<div class='description create-search-items searchable'>
@@ -121,7 +138,9 @@
 		  	</div>		
 		</div>
 		<div class='item' data-filters='animals fail'>
-			<img src="img/six.jpg">
+			<div class='item__image'>
+				<img src="img/six.jpg">
+			</div>
 		  	<p class='search-item searchable'>Drunk Cat</p>
 		  	<hr>
 		  	<div class='description create-search-items searchable'>
@@ -129,7 +148,9 @@
 		  	</div>		
 		</div>
 		<div class='item' data-filters='animals'>
-			<img src="img/seven.jpg">
+			<div class='item__image'>
+				<img src="img/seven.jpg">
+			</div>
 		  	<p class='search-item searchable'>Cool Hair</p>
 		  	<hr>
 		  	<div class='description create-search-items searchable'>
@@ -137,7 +158,9 @@
 		  	</div>		
 		</div>
 		<div class='item' data-filters='people'>
-			<img src="img/eight.png">
+			<div class='item__image'>
+				<img src="img/eight.png">
+			</div>
 		  	<p class='search-item searchable'>Flower Dog</p>
 		  	<hr>
 		  	<div class='description create-search-items searchable'>
@@ -175,10 +198,8 @@
 				layoutMode: 'fitRows'	
 			}).isotopeSearchFilter();
 
-
 		});
 	})
-
 	</script>
 		
 	

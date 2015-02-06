@@ -8,8 +8,18 @@ $.fn.isotopeSearchFilter = (options) ->
 		searchResultsClassSelector: '.active'
 		inputSearch:	$('#search-term')
 
+
+
+	console.log defaults
+	console.log 'sharks'
+	console.log options
+
 	options = $.extend(defaults, options)
 	activeClass = options.searchResultsClassSelector.replace('.','')
+
+
+
+
 
 	# Helper to Case Insensitize search terms
 	$.extend $.expr[":"],
@@ -37,6 +47,7 @@ $.fn.isotopeSearchFilter = (options) ->
 
 
 	@each ->
+
 		options.inputSearch.keyup ->
 			if options.inputSearch.val() == ''
 				updateFilter('')
