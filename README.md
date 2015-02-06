@@ -23,6 +23,21 @@ If your sorting containers use images, I recommend David DeSandro's [imagesloade
 
 	})
 
+
+	// If using imagesLoaded:
+
+	$(document).ready(function(){
+		var $container = $('.item-container')
+		
+		imagesLoaded( '.item-container', function() {
+			$container.isotope({
+				itemSelector: '.item',
+				layoutMode: 'fitRows'	
+			}).isotopeSearchFilter();
+		});
+	})		
+
+
 ```
 
 Available Options:
@@ -37,6 +52,13 @@ Available Options:
 	})
 
 ```
+
+Dependencies
+ - jQuery
+ - Metafizzy Isotope [http://isotope.metafizzy.co/](http://isotope.metafizzy.co/)
+ - If your content contains images use: [imagesloaded](https://github.com/desandro/imagesloaded).
+
+
 
 ### Related Plugins:
 
