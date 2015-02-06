@@ -1,6 +1,6 @@
-# isotopeSearchFilter jquery plugin
+# isotopeSearchFilter jQuery plugin
 
-#### This is a jQuery plugin that combines internal page search functionality with the Isotope plugin
+#### This is a super-light jQuery plugin that combines internal page search functionality with the Isotope plugin
 
 ### Demo:
 [http://benrlodge.github.io/isotopeSearchFilter/](http://benrlodge.github.io/isotopeSearchFilter/)
@@ -25,8 +25,7 @@ If your sorting containers use images, I recommend David DeSandro's [imagesloade
 
 ```
 
-Options available to override include the name of the container that includes your items, and the text input box. See the source for more detail.
-
+Available Options:
 
 ```javascript
 	isotopeSearchFilter({
@@ -44,4 +43,10 @@ Options available to override include the name of the container that includes yo
 #### isotopeDropdownFilters: 
 [https://github.com/benrlodge/isotopeDropdownFilters](https://github.com/benrlodge/isotopeDropdownFilters)
 
-This is a jQuery plugin that makes it easy to incorporate dropdowns and filtering using the Isotope plugin.
+This is a jQuery plugin that makes it easy to incorporate dropdowns and multi-select filtering using the Isotope plugin.
+
+
+### Contributions:
+
+PRs and feature requests are encouraged. If you wish to PR please make updates in the coffee file. 
+
