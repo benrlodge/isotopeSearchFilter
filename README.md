@@ -13,29 +13,29 @@ If your sorting containers use images, I recommend David DeSandro's [imagesloade
 
 ```javascript
 
-	$(document).ready(function(){
-		var $container = $('.item-container')
-		
-		$container.isotope({
-			itemSelector: '.item',
-			layoutMode: 'fitRows'	
-		}).isotopeSearchFilter();
+  $(document).ready(function(){
+    var $container = $('.item-container')
+    
+    $container.isotope({
+      itemSelector: '.item',
+      layoutMode: 'fitRows' 
+    }).isotopeSearchFilter();
 
-	})
+  })
 
 
-	// If using imagesLoaded:
+  // If using imagesLoaded:
 
-	$(document).ready(function(){
-		var $container = $('.item-container')
-		
-		imagesLoaded( '.item-container', function() {
-			$container.isotope({
-				itemSelector: '.item',
-				layoutMode: 'fitRows'	
-			}).isotopeSearchFilter();
-		});
-	})		
+  $(document).ready(function(){
+    var $container = $('.item-container')
+    
+    imagesLoaded( '.item-container', function() {
+      $container.isotope({
+        itemSelector: '.item',
+        layoutMode: 'fitRows' 
+      }).isotopeSearchFilter();
+    });
+  })    
 
 
 ```
@@ -43,13 +43,13 @@ If your sorting containers use images, I recommend David DeSandro's [imagesloade
 Available Options:
 
 ```javascript
-	isotopeSearchFilter({
-		itemsContainer: $(".item-container"),
-      		itemSelector: '.item',
-      		filtersSelector: '.filters',
-      		searchResultsClassSelector: '.active',
-      		inputSearch: $('#search-term')
-	})
+  isotopeSearchFilter({
+    itemsContainer: $(".item-container"),
+    itemSelector: '.item',
+    filtersSelector: '.filters',
+    searchResultsClassSelector: '.active',
+    inputSearch: $('#search-term')
+  })
 
 ```
 
