@@ -48,5 +48,5 @@ This is a jQuery plugin that makes it easy to incorporate dropdowns and multi-se
 
 ### Contributions:
 
-PRs and feature requests are encouraged. If you wish to PR please make updates in the coffee file. 
+PRs and feature requests are encouraged. If you wish to contribute please make updates in the coffee file. 
 
