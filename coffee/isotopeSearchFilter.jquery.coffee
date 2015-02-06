@@ -4,7 +4,6 @@
 # http://www.benrlodge.com
 # Licence: Do What the Fuck You Want (http://www.wtfpl.net)
 
-
 $.fn.isotopeSearchFilter = (options) ->
 
   defaults = 
@@ -23,15 +22,18 @@ $.fn.isotopeSearchFilter = (options) ->
     containsNC: (elem, i, match, array) ->
         (elem.textContent or elem.innerText or "").toLowerCase().indexOf((match[3] or "").toLowerCase()) >= 0
 
+
   # Isotope Filter Logic
   updateFilter = (val) ->
     options.itemsContainer.isotope
       filter: val
 
+
   # Find Matched Items
   searchDOM = (searchTerm) ->
+    $(options.itemSelector).removeClass(activeClass)
+
     options.itemsContainer
-      .removeClass(activeClass)
       .find($( ":containsNC(#{searchTerm})" ))
       .closest(options.itemSelector)
       .addClass(activeClass)
@@ -40,7 +42,7 @@ $.fn.isotopeSearchFilter = (options) ->
 
   # Check if any filters are active
   filterCheck = ->
-    return $(options.filtersSelector).hasClass(activeClass)
+    $(options.filtersSelector).hasClass(activeClass)
 
 
   @each ->

@@ -21,7 +21,8 @@
       });
     };
     searchDOM = function(searchTerm) {
-      options.itemsContainer.removeClass(activeClass).find($(":containsNC(" + searchTerm + ")")).closest(options.itemSelector).addClass(activeClass);
+      $(options.itemSelector).removeClass(activeClass);
+      options.itemsContainer.find($(":containsNC(" + searchTerm + ")")).closest(options.itemSelector).addClass(activeClass);
       return updateFilter(options.searchResultsClassSelector);
     };
     filterCheck = function() {
