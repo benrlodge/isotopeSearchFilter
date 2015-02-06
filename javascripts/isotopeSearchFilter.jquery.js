@@ -8,9 +8,6 @@
       searchResultsClassSelector: '.active',
       inputSearch: $('#search-term')
     };
-    console.log(defaults);
-    console.log('sharks');
-    console.log(options);
     options = $.extend(defaults, options);
     activeClass = options.searchResultsClassSelector.replace('.', '');
     $.extend($.expr[":"], {
