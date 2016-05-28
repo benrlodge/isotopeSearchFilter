@@ -1,9 +1,8 @@
 {
-  "name": "iso",
-  "version": "1.0.0",
-  "author": "Ben - benrlodge@gmail.com",
+  "name": "isotopSearchFilter",
+  "version": "1.0.1",
+  "author": "Ben - https://github.com/benrlodge",
   "devDependencies": {
-    "grunt-contrib-coffee": "^0.12.0",
-    "grunt-contrib-watch": "^0.6.1"
+    "gulp-coffee": "^2.3.2"
   }
 }

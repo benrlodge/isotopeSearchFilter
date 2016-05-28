@@ -24,7 +24,7 @@ If your sorting containers use images, I recommend David DeSandro's [imagesloade
   })
 
 
-  // If using imagesLoaded:
+  // With imagesLoaded:
 
   $(document).ready(function(){
     var $container = $('.item-container')
@@ -44,11 +44,11 @@ Available Options:
 
 ```javascript
   isotopeSearchFilter({
-    itemsContainer: $(".item-container"),
-    itemSelector: '.item',
-    filtersSelector: '.filters',
-    searchResultsClassSelector: '.active',
-    inputSearch: $('#search-term')
+    itemsContainer: ".item-container",
+    itemSelector: ".item",
+    filtersSelector: ".filters",
+    searchResultsClassSelector: ".active",
+    inputSearch: '#search-term'
   })
 
 ```
@@ -57,8 +57,6 @@ Dependencies
  - jQuery
  - Metafizzy Isotope [http://isotope.metafizzy.co/](http://isotope.metafizzy.co/)
  - If your content contains images use: [imagesloaded](https://github.com/desandro/imagesloaded).
-
-
 
 ### Related Plugins:
 
@@ -70,5 +68,5 @@ This is a jQuery plugin that makes it easy to incorporate dropdowns and multi-se
 
 ### Contributions:
 
-PRs and feature requests are encouraged. If you wish to contribute please make updates in the coffee file. 
+PRs and feature requests are welcomed. If you wish to contribute please make updates in the coffee file. 
 
